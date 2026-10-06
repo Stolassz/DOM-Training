@@ -18,6 +18,9 @@ form.addEventListener("submit", adicionarTarefa)
 // Funções
 
 function adicionarTarefa() {
+
+    event.preventDefault();
+
     let texto = inputTarefa.value.trim();
 
     if (texto === "") {
@@ -32,5 +35,14 @@ function adicionarTarefa() {
     };
 
     tarefas.push(novaTarefa);
+    salvarTarefa();
     
+    inputTarefa.value = "";
+    inputTarefa.focus();
+}
+
+function salvarTarefa () {
+
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
 }
