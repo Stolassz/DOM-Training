@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha To-Do List</title>
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="bg-primary text-white py-4">
+        <div class="container">
+            <h1 class="mb-1">Minha To-Do List</h1>
+            <p class="mb-0">
+                Organize suas tarefas do dia
+            </p>
+        </div>
+    </header>
+    <!-- Conteúdo principal -->
+    <main class="container my-5">
+        <!-- Seção de cadastro -->
+        <section class="mb-5">
+            <h2 class="mb-4">Adicionar tarefa</h2>
+            <form id="form-tarefa">
+                <div class="input-group">
+                    <label
+                        for="tarefa"
+                        class="visually-hidden">
+                        Nome da tarefa
+                    </label>
+                    <input
+                        type="text"
+                        id="tarefa"
+                        class="form-control"
+                        placeholder="Digite uma tarefa..."
+                        autocomplete="off">
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+                        Adicionar
+                    </button>
+                </div>
+            </form>
+        </section>
+        <!-- Seção da lista -->
+        <section>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">
+                    Minhas tarefas
+                </h2>
+                <span
+                    id="contador"
+                    class="badge text-bg-secondary">
+                    0 tarefas
+                </span>
+            </div>
+            <!-- Tabela de tarefas -->
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Tarefa</th>
+                            <th>Status</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista-tarefas">
+                        <!--
+                            As tarefas serão inseridas
+                            pelo JavaScript.
+                        -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <!-- Rodapé -->
+    <footer class="bg-light text-center py-4">
+        <p class="mb-0 text-muted">
+            To-Do List - JavaScript + DOM + LocalStorage
+        </p>
+    </footer>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
