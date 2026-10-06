@@ -35,7 +35,10 @@ function adicionarTarefa() {
     };
 
     tarefas.push(novaTarefa);
+
     salvarTarefa();
+
+    renderizarTarefas();
     
     inputTarefa.value = "";
     inputTarefa.focus();
@@ -44,5 +47,45 @@ function adicionarTarefa() {
 function salvarTarefa () {
 
     localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+}
+
+function renderizarTarefas () {
+
+    listaTarefas.innerHTML = "";
+
+    tarefas.forEach(function (tarefa, indice) {
+
+        const linha = document.createElement("tr");
+
+        const colunaNumero = document.createElement("td");
+        colunaNumero.textContent = indice + 1;
+
+        const colunaTarefa = document.createElement("td");
+        colunaTarefa.textContent = tarefa.texto;
+
+        if (tarefa.concluido){
+
+            colunaTarefa.classList.add(
+                "text-decoration-line-through",
+                "text-muted",
+            );
+        }
+
+        const colunaStatus = document.createElement("td");
+        if (tarefa.concluido) {
+            colunaStatus.innerHTML = '<span class="badge text-bg-success">Concluida</span>';
+        } else {
+            colunaStatus.innerHTML = '<span class="badge text-bg-warning">Pendente</span>';
+        }
+
+
+        linha.appendChild(colunaNumero);
+        linha.appendChild(colunaTarefa);
+        linha.appendChild(colunaStatus);
+
+        listaTarefas.appendChild(linha);
+
+    });
 
 }
