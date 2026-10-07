@@ -1,21 +1,23 @@
-// ==============
-// Elementos DOM
-// ==============
+// ====================================================================================
+// ================================== Elementos DOM ===================================
+// ====================================================================================
 
 const form = document.querySelector('#form-tarefa') 
 const inputTarefa = document.querySelector('#tarefa')
 const contador = document.querySelector('#contador')
 const listaTarefas = document.querySelector('#lista-tarefas')
 
-// Resgate das tarefas no localStorage
+// =================================== Resgate das tarefas no localStorage ===================================
 
 let tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
 
-// Ouvir o evento click
+// =================================== Ouvir o evento click ===================================
 
 form.addEventListener("submit", adicionarTarefa)
 
-// Funções
+// =================================== Funções ===================================
+
+// ========================== Cria tarefas
 
 function adicionarTarefa() {
 
@@ -44,11 +46,15 @@ function adicionarTarefa() {
     inputTarefa.focus();
 }
 
+// ========================== Salva Tarefas
+
 function salvarTarefa () {
 
     localStorage.setItem("tarefas", JSON.stringify(tarefas));
 
 }
+
+// ========================== Renderiza as tarefas na tabela
 
 function renderizarTarefas () {
 
@@ -79,13 +85,62 @@ function renderizarTarefas () {
             colunaStatus.innerHTML = '<span class="badge text-bg-warning">Pendente</span>';
         }
 
+        const colunaAcoes = document.createElement("td");
+        colunaAcoes.classList.add(
+            "text-center"
+        )
+
+        const botaoConcluir = document.createElement("button");
+        botaoConcluir.textContent = tarefa.concluido ? "Reabrir" : "Concluir";
+        botaoConcluir.classList.add( 
+            "btn",
+            tarefa.concluido ? "btn-warning" : "btn-success",
+            "btn-sm",
+            "me-2"
+        );
+
+        botaoConcluir.addEventListener(
+            "click",
+            function() {
+            alterarStatus(tarefa.id)}
+        );
+        
+        const botaoEditar = document.createElement("button");
+        
+
+
+        const botaoExcluir = document.createElement("button");
+
+
+        colunaAcoes.appendChild(botaoConcluir);
+        colunaAcoes.appendChild(botaoEditar);
+        colunaAcoes.appendChild(botaoExcluir);
 
         linha.appendChild(colunaNumero);
         linha.appendChild(colunaTarefa);
         linha.appendChild(colunaStatus);
+        linha.appendChild(colunaAcoes);
 
         listaTarefas.appendChild(linha);
 
     });
 
 }
+
+// ========================== Alterar o status das tarefas, clicando nos botões
+
+function alterarStatus(id) {
+    tarefas.forEach(function (tarefa) {
+        if (tarefa.id === id) {
+            tarefa.concluido = !tarefa.concluido;
+        };
+    });
+
+    salvarTarefa();
+
+    renderizarTarefas();
+};
+
+
+renderizarTarefas();
+
