@@ -150,6 +150,7 @@ function renderizarTarefas () {
 
     });
 
+    atualizarContador();
 }
 
 // ========================== Alterar o status das tarefas, (botão)
@@ -209,6 +210,16 @@ function excluirTarefa(id) {
     salvarTarefa();
 
     renderizarTarefas();
+
+};
+
+function atualizarContador() {
+    const quantidade = tarefas.length;
+    if (quantidade === 0) {
+        contador.textContent = "Não há tarefas";
+    } else {
+        contador.textContent = quantidade + " tarefa"
+    }
 
 };
 
