@@ -76,7 +76,7 @@ function renderizarTarefas () {
                 "text-decoration-line-through",
                 "text-muted",
             );
-        }
+        };
 
         const colunaStatus = document.createElement("td");
         if (tarefa.concluido) {
@@ -88,7 +88,7 @@ function renderizarTarefas () {
         const colunaAcoes = document.createElement("td");
         colunaAcoes.classList.add(
             "text-center"
-        )
+        );
 
         const botaoConcluir = document.createElement("button");
         botaoConcluir.textContent = tarefa.concluido ? "Reabrir" : "Concluir";
@@ -98,20 +98,45 @@ function renderizarTarefas () {
             "btn-sm",
             "me-2"
         );
-
+        
         botaoConcluir.addEventListener(
             "click",
             function() {
-            alterarStatus(tarefa.id)}
+                alterarStatus(tarefa.id)}
         );
-        
+
         const botaoEditar = document.createElement("button");
-        
+        botaoEditar.textContent = "Editar";
+        botaoEditar.classList.add( 
+                "btn",
+                "btn-primary",
+                "btn-sm",
+                "me-2"
+        );
 
-
+        botaoEditar.addEventListener (
+            "click",
+            function () {
+                editarTarefa(tarefa.id);
+            }
+        );  
+            
         const botaoExcluir = document.createElement("button");
+        botaoExcluir.textContent = "Excluir"
+        botaoExcluir.classList.add( 
+                "btn",
+                "btn-danger",
+                "btn-sm",
+                "me-2"
+        );
 
-
+        botaoExcluir.addEventListener (
+            "click",
+            function () {
+                excluirTarefa(tarefa.id);
+            }
+        )
+            
         colunaAcoes.appendChild(botaoConcluir);
         colunaAcoes.appendChild(botaoEditar);
         colunaAcoes.appendChild(botaoExcluir);
@@ -127,7 +152,7 @@ function renderizarTarefas () {
 
 }
 
-// ========================== Alterar o status das tarefas, clicando nos botões
+// ========================== Alterar o status das tarefas, (botão)
 
 function alterarStatus(id) {
     tarefas.forEach(function (tarefa) {
@@ -141,6 +166,51 @@ function alterarStatus(id) {
     renderizarTarefas();
 };
 
+// ========================== Edita o texto das tarefas (botão)
+
+function editarTarefa(id) {
+    const tarefa = tarefas.find(function (tarefa) {
+        return tarefa.id === id;
+    });
+    
+    do {
+        const novoTexto = prompt("Digite um novo texto:", tarefa.texto)
+        if (novoTexto === null) {
+            return;
+        };
+
+        texto = novoTexto.trim();
+    
+        if (texto === "") {
+            alert("A tarefa não pode ficar vazia.");
+        } 
+    } while (texto === "");
+
+
+    tarefa.texto = texto;
+
+    salvarTarefa();
+
+    renderizarTarefas();
+};
+
+// ========================== Exclui a tarefa (botão)
+
+function excluirTarefa(id) {
+    const confirmar = confirm("Deseja realmente excluir essa tarefa?");
+    if (!confirmar) {
+        return;
+    }
+
+    tarefas = tarefas.filter(function (tarefa) {
+        return tarefa.id !== id;
+    });
+     
+    salvarTarefa();
+
+    renderizarTarefas();
+
+};
 
 renderizarTarefas();
 
